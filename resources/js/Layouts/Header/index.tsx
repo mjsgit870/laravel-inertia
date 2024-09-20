@@ -1,13 +1,15 @@
 import { useState } from "react"
-import { AppBar, Toolbar, Typography, IconButton, Avatar, Menu, MenuItem, Divider } from '@mui/material'
-import { Menu as MenuIcon } from '@mui/icons-material'
-import { Link } from '@inertiajs/react'
+import { AppBar, Toolbar, Typography, IconButton, Avatar, Menu, MenuItem, Divider, ListItemText, ListItemIcon } from '@mui/material'
+import { ExitToApp, Menu as MenuIcon, Person } from '@mui/icons-material'
+import { Link, usePage } from '@inertiajs/react'
 
 interface HeaderProps {
   handleDrawerToggle: () => void
 }
 
 const Header = ({ handleDrawerToggle }: HeaderProps) => {
+  const { auth } = usePage().props as any
+
   const [anchorEl, setAnchorEl] = useState(null)
   const openMenu = Boolean(anchorEl)
 
@@ -33,7 +35,7 @@ const Header = ({ handleDrawerToggle }: HeaderProps) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-          Admin Panel
+          {auth.user.name}
         </Typography>
 
         {/* Profile Avatar with Dropdown */}
@@ -45,7 +47,7 @@ const Header = ({ handleDrawerToggle }: HeaderProps) => {
           open={openMenu}
           onClose={handleMenuClose}
           anchorOrigin={{
-            vertical: 'top',
+            vertical: 'bottom',
             horizontal: 'right',
           }}
           transformOrigin={{
@@ -54,11 +56,17 @@ const Header = ({ handleDrawerToggle }: HeaderProps) => {
           }}
         >
           <MenuItem component={Link} href="/profile">
-            Profile
+            <ListItemIcon>
+              <Person fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Profile</ListItemText>
           </MenuItem>
           <Divider />
-          <MenuItem component={Link} href="/logout">
-            Logout
+          <MenuItem component={Link} method="post" href="/auth/logout">
+            <ListItemIcon>
+              <ExitToApp fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Logout</ListItemText>
           </MenuItem>
         </Menu>
       </Toolbar>
