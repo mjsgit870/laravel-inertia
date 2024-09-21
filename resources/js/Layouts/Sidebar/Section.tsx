@@ -8,8 +8,9 @@ export default function Section({ text }: SectionProps) {
   return (
     <>
       <Typography 
-        variant="h6" 
+        variant="subtitle1" 
         sx={{ padding: '10px 16px', marginTop: '10px' }}
+        color="textSecondary"
       >
         {text}
       </Typography>
