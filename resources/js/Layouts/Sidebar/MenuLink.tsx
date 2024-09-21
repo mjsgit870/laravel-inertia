@@ -24,6 +24,9 @@ export default function MenuLink({ href, icon = <FiberManualRecordOutlined />, l
             color: '#fff',
           },
         },
+        '&.Mui-selected:hover': {
+          backgroundColor: '#1565c0',
+        },
       }}
     >
       <ListItemIcon>{icon}</ListItemIcon>
